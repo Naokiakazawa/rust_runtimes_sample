@@ -1,5 +1,3 @@
-#![forbid(unsafe_code)]
-
 use onnxruntime::{
     environment::Environment, ndarray::Array, tensor::OrtOwnedTensor, GraphOptimizationLevel,
     LoggingLevel,
