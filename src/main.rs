@@ -25,7 +25,7 @@ fn run() -> Result<(), Error> {
 
     let environment = Environment::builder()
         .with_name("test")
-        .with_log_level(LoggingLevel::Info)
+        .with_log_level(LoggingLevel::Warning)
         .build()?;
 
     let mut session = environment
