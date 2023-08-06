@@ -15,13 +15,13 @@ fn main() {
 }
 
 fn run() -> Result<(), Error> {
-    let subscriber = FmtSubscriber::builder()
+    let subscriber: FmtSubscriber = FmtSubscriber::builder()
         .with_max_level(Level::TRACE)
         .finish();
 
     tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
 
-    let environment = Environment::builder()
+    let environment: Environment = Environment::builder()
         .with_name("test")
         .with_log_level(LoggingLevel::Warning)
         .build()?;
