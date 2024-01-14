@@ -41,7 +41,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(schema.clone()))
-            .service(web::resource("/").guard(actix_web::guard::Post()).to(index))
+            .service(web::resource("/graph").guard(actix_web::guard::Post()).to(index))
             .service(
                 web::resource("/graphiql")
                     .guard(actix_web::guard::Get())
