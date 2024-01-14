@@ -23,7 +23,7 @@ async fn index(schema: web::Data<MySchema>, req: GraphQLRequest) -> GraphQLRespo
 }
 
 async fn graphiql() -> HttpResponse {
-    let html = playground_source(GraphQLPlaygroundConfig::new("/"));
+    let html = playground_source(GraphQLPlaygroundConfig::new("/graph"));
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(html)
