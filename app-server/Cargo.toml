@@ -9,8 +9,8 @@ edition = "2021"
 onnx-runtime = { path = "../runtimes/onnx-runtime" }
 wasm-runtime = { path = "../runtimes/wasm-runtime" }
 actix-web = "4.4.1"
-async-graphql = "7.0.0"
-async-graphql-actix-web = "7.0.0"
+async-graphql = "6.0.11"
+async-graphql-actix-web = "6.0.11"
 slab = "0.4.9"
 log = "0.4.20"
 env_logger = "0.10.1"

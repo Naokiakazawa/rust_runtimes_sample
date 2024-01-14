@@ -1,6 +1,7 @@
 use actix_web::{web, App, HttpResponse, HttpServer};
 use async_graphql::{
-    http::graphiql_source, Context, EmptyMutation, EmptySubscription, Object, Schema,
+    http::{playground_source, GraphQLPlaygroundConfig},
+    Context, EmptyMutation, EmptySubscription, Object, Schema,
 };
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use log::info;
@@ -17,16 +18,12 @@ impl QueryRoot {
 
 type MySchema = Schema<QueryRoot, EmptyMutation, EmptySubscription>;
 
-async fn index(
-    // Schema now accessible here
-    schema: web::Data<MySchema>,
-    request: GraphQLRequest,
-) -> web::Json<GraphQLResponse> {
-    web::Json(schema.execute(request.into_inner()).await.into())
+async fn index(schema: web::Data<MySchema>, req: GraphQLRequest) -> GraphQLResponse {
+    schema.execute(req.into_inner()).await.into()
 }
 
 async fn graphiql() -> HttpResponse {
-    let html = graphiql_source("http://127.0.0.1:8000/", None);
+    let html = playground_source(GraphQLPlaygroundConfig::new("/"));
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(html)
@@ -43,7 +40,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .data(schema.clone())
+            .app_data(web::Data::new(schema.clone()))
             .service(web::resource("/").guard(actix_web::guard::Post()).to(index))
             .service(
                 web::resource("/graphiql")
