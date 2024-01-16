@@ -10,7 +10,7 @@ struct QueryRoot;
 
 #[Object]
 impl QueryRoot {
-    async fn hello(&self, ctx: &Context<'_>) -> String {
+    async fn hello(&self, _ctx: &Context<'_>) -> String {
         info!("Received hello request");
         "Hello, world!".to_string()
     }
