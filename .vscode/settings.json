@@ -1,5 +1,9 @@
 {
     "rust-analyzer.linkedProjects": [
         "./Cargo.toml"
-    ]
+    ],
+    "rust-analyzer.server.extraEnv": {
+        "ORT_STRATEGY": "system",
+        "ORT_LIB_LOCATION": "/opt/homebrew/Cellar/onnxruntime/1.16.3/lib"
+    }
 }
