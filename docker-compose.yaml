@@ -3,6 +3,7 @@ services:
   app-server:
     build: 
       context: .
-      dockerfile: docker/app-server/Dockerfile
+      dockerfile: app-server/Dockerfile
+    image: app-server
     ports:
       - "8000:8000"

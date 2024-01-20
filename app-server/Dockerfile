@@ -1,5 +1,5 @@
 FROM rust:latest as builder
-RUN apt-get update && apt-get install -y binaryen musl-tools && rm -rf /var/lib/apt/lists/* && rustup target add x86_64-unknown-linux-musl
+RUN apt-get update && apt-get install -y musl-tools && rm -rf /var/lib/apt/lists/* && rustup target add x86_64-unknown-linux-musl
 COPY ./app-server ./app-server
 COPY ./runtimes ./runtimes
 COPY ./Cargo.toml .
