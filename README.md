@@ -1,5 +1,7 @@
 # Runtime sample
 
+[![Lint & Test](https://github.com/Naokiakazawa/rust_runtimes_sample/actions/workflows/check.yml/badge.svg)](https://github.com/Naokiakazawa/rust_runtimes_sample/actions/workflows/check.yml) [![Docker CI](https://github.com/Naokiakazawa/rust_runtimes_sample/actions/workflows/docker.yml/badge.svg)](https://github.com/Naokiakazawa/rust_runtimes_sample/actions/workflows/docker.yml)
+
 ## For Mac
 
 ### Install onnxruntime
