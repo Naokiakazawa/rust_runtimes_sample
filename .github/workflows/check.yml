@@ -6,9 +6,19 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set Toolchain
       uses: dtolnay/rust-toolchain@stable
+    - name: Caching
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - name: Run check
       run: cargo check
     - name: Run rustfmt
@@ -20,8 +30,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Crate
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set Toolchain
       uses: dtolnay/rust-toolchain@stable
+    - name: Caching
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - name: Run test
       run: cargo test
