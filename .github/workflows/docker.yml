@@ -13,6 +13,36 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Cache Docker layers - App
+      uses: actions/cache@v3
+      with:
+        path: /tmp/.buildx-cache-server
+        key: ${{ github.ref }}-${{ github.sha }}
+        restore-keys: |
+          ${{ github.ref }}
+          refs/head/main
+    
+    - name: Build server image
+      uses: docker/build-push-action@v5
+      with:
+        push: false
+        builder: ${{ steps.buildx.outputs.name }} # Buildxでビルドすることを指定
+        tags: app-server # イメージ名を指定/docker-compose.ymlで参照する名前
+        load: true
+        context: .
+        file: ./app-server/Dockerfile
+        cache-from: type=local,src=/tmp/.buildx-cache-server # キャッシュを指定
+        cache-to: type=local,dest=/tmp/.buildx-cache-new-server # キャッシュを指定
+
     - name: Build with Docker Compose
       run: |
         docker compose build
+
+    - name: Update cache
+      run: |
+        rm -rf /tmp/.buildx-cache-server
+        mv /tmp/.buildx-cache-new-server /tmp/.buildx-cache-server
